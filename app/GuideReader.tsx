@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import BeijingGuide from "./BeijingGuide";
 import LondonGuide from "./LondonGuide";
 
-type DestinationKey = "milan" | "london";
+type DestinationKey = "milan" | "london" | "beijing";
 type ThemeKey = "vintage" | "modern";
 
 const chapterSets = {
@@ -21,6 +22,13 @@ const chapterSets = {
     { id: "sapori", no: "03", local: "Flavours", zh: "美食" },
     { id: "itinerario", no: "04", local: "Itinerary", zh: "行程" },
   ],
+  beijing: [
+    { id: "prologue", no: "00", local: "序章", zh: "PROLOGUE" },
+    { id: "cultura", no: "01", local: "人文", zh: "HERITAGE" },
+    { id: "natura", no: "02", local: "山水", zh: "NATURE" },
+    { id: "sapori", no: "03", local: "味道", zh: "FLAVOURS" },
+    { id: "itinerario", no: "04", local: "行程", zh: "ITINERARY" },
+  ],
 } as const;
 
 const destinationMeta = {
@@ -33,6 +41,13 @@ const destinationMeta = {
     coordinates: ["45.4642° N", "9.1900° E"],
     region: "Lombardia · Italia",
     slug: "milano",
+    documentTitle: "Milano · 米兰漫游志",
+    language: "it",
+    libraryLabel: "Archivio di viaggio",
+    indexLabel: "INDICE · 目录",
+    exportBookLabel: "Esporta il libro",
+    exportPagesLabel: "Esporta immagine",
+    longImageLabel: "Immagine lunga",
   },
   london: {
     edition: "TRAVEL BOOK № 08",
@@ -43,8 +58,42 @@ const destinationMeta = {
     coordinates: ["51.5072° N", "0.1276° W"],
     region: "England · United Kingdom",
     slug: "london",
+    documentTitle: "London · 伦敦漫游志",
+    language: "en-GB",
+    libraryLabel: "Travel library",
+    indexLabel: "INDEX · 目录",
+    exportBookLabel: "Export the book",
+    exportPagesLabel: "Export pages",
+    longImageLabel: "Long image",
+  },
+  beijing: {
+    edition: "TRAVEL BOOK № 09",
+    kicker: "行走中国 · Journey through China",
+    city: "BEIJING",
+    cityZh: "北京漫游志",
+    copy: <>一册关于城门、胡同<br />与皇家园林的城市读本</>,
+    coordinates: ["39.9042° N", "116.4074° E"],
+    region: "北京市 · 中国",
+    slug: "beijing",
+    documentTitle: "北京 · Beijing 漫游志",
+    language: "zh-CN",
+    libraryLabel: "旅行书架",
+    indexLabel: "目录 · INDEX",
+    exportBookLabel: "导出城市读本",
+    exportPagesLabel: "导出分页图片",
+    longImageLabel: "导出完整长图",
   },
 } as const;
+
+const guideComponents: Record<DestinationKey, React.ComponentType<{ theme: ThemeKey }> | null> = {
+  milan: null,
+  london: LondonGuide,
+  beijing: BeijingGuide,
+};
+
+function isDestinationKey(value: string | null): value is DestinationKey {
+  return value !== null && value in destinationMeta;
+}
 
 function BilingualName({ it, zh }: { it: string; zh: string }) {
   return (
@@ -78,12 +127,13 @@ export default function Home() {
   const themeEndTimer = useRef<number | null>(null);
   const currentDestination = destinationMeta[destination];
   const currentChapters = chapterSets[destination];
+  const GuideComponent = guideComponents[destination];
 
   useEffect(() => {
     const readGuideOptions = () => {
       const params = new URLSearchParams(window.location.search);
       const city = params.get("city");
-      setDestination(city === "london" ? "london" : "milan");
+      setDestination(isDestinationKey(city) ? city : "milan");
       setTheme(params.get("style") === "modern" ? "modern" : "vintage");
     };
     readGuideOptions();
@@ -92,9 +142,8 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    const cityTitle = destination === "london" ? "London · 伦敦漫游志" : "Milano · 米兰漫游志";
-    document.title = `${cityTitle} · ${theme === "modern" ? "现代影像版" : "复古版"}`;
-  }, [destination, theme]);
+    document.title = `${currentDestination.documentTitle} · ${theme === "modern" ? "现代影像版" : "复古版"}`;
+  }, [currentDestination, theme]);
 
   useEffect(() => {
     const onScroll = () => {
@@ -311,7 +360,7 @@ export default function Home() {
 
         <a className="library-return" href="/" aria-label="返回旅行目的地入口页">
           <span aria-hidden="true">←</span>
-          <b>{destination === "london" ? "Travel library" : "Archivio di viaggio"}</b>
+          <b>{currentDestination.libraryLabel}</b>
           <small>返回旅行书架</small>
         </a>
 
@@ -325,7 +374,7 @@ export default function Home() {
         </div>
 
         <nav aria-label="页面目录">
-          <p className="nav-label">{destination === "london" ? "INDEX · 目录" : "INDICE · 目录"}</p>
+          <p className="nav-label">{currentDestination.indexLabel}</p>
           {currentChapters.map((item) => (
             <button
               key={item.id}
@@ -346,8 +395,8 @@ export default function Home() {
         >
           <span className="export-icon" aria-hidden="true">⇩</span>
           <span>
-            <em lang={destination === "london" ? "en-GB" : "it"}>
-              {destination === "london" ? "Export the book" : "Esporta il libro"}
+            <em lang={currentDestination.language}>
+              {currentDestination.exportBookLabel}
             </em>
             <small>导出 PDF · 打印</small>
           </span>
@@ -362,8 +411,8 @@ export default function Home() {
         >
           <span className="export-icon image-icon" aria-hidden="true">▣</span>
           <span>
-            <em lang={destination === "london" ? "en-GB" : "it"}>
-              {destination === "london" ? "Export pages" : "Esporta immagine"}
+            <em lang={currentDestination.language}>
+              {currentDestination.exportPagesLabel}
             </em>
             <small>
               {imageExportState === "working" && `正在生成第 ${imageExportProgress}/5 页…`}
@@ -383,8 +432,8 @@ export default function Home() {
         >
           <span className="export-icon image-icon" aria-hidden="true">▥</span>
           <span>
-            <em lang={destination === "london" ? "en-GB" : "it"}>
-              {destination === "london" ? "Long image" : "Immagine lunga"}
+            <em lang={currentDestination.language}>
+              {currentDestination.longImageLabel}
             </em>
             <small>
               {longExportState === "working" && "正在生成长图…"}
@@ -672,8 +721,10 @@ export default function Home() {
           <p className="colophon">CURATO E ILLUSTRATO · MMXXVI</p>
         </footer>
       </div>
+      ) : GuideComponent ? (
+        <GuideComponent theme={theme} />
       ) : (
-        <LondonGuide theme={theme} />
+        null
       )}
     </main>
   );

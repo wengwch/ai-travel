@@ -37,6 +37,25 @@ const catalogue = [
       },
     ],
   },
+  {
+    code: "03",
+    local: "Zhōngguó",
+    zh: "中国",
+    note: "AXIS · GARDENS · FLAVOURS",
+    cities: [
+      {
+        slug: "beijing",
+        local: "Běijīng",
+        zh: "北京",
+        region: "北京市 · 华北",
+        description: "城门、胡同与皇家园林，一册在宏大轴线和日常烟火之间展开的城市读本。",
+        vintageImage: "/images/beijing-hero-vintage.png",
+        modernImage: "/images/beijing-hero-modern.png",
+        alt: "北京故宫宫殿中轴线与朱墙金瓦",
+        volume: "TRAVEL BOOK № 09",
+      },
+    ],
+  },
 ] as const;
 
 export default function CataloguePage() {

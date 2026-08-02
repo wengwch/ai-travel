@@ -449,6 +449,14 @@ img { display: block; width: 100%; }
 }
 .destination-london .reading-progress { background: #9f3e42; box-shadow: 0 0 9px rgba(159,62,66,.6); }
 .destination-london .book-index nav button.active::after { background: #a94f51; }
+.destination-beijing .book-index {
+  background:
+    linear-gradient(rgba(61,31,27,.93), rgba(45,24,22,.98)),
+    radial-gradient(circle at 20% 20%, #805148, transparent 45%),
+    #432824;
+}
+.destination-beijing .reading-progress { background: #d0a242; box-shadow: 0 0 9px rgba(208,162,66,.58); }
+.destination-beijing .book-index nav button.active::after { background: #d0a242; }
 
 .book-index nav { position: relative; margin-top: 34px; }
 .nav-label { margin: 0 0 10px; color: #8f9a92; font: 600 9px/1 Arial, sans-serif; letter-spacing: .24em; }
@@ -660,6 +668,7 @@ blockquote small { display: block; color: var(--muted); font-size: 11px; line-he
 .scala-card { grid-area: scala; min-height: 210px; }
 .castle-card { grid-area: castle; min-height: 170px; padding-left: 185px; }
 .castle-card::before { content: "CASTELLO"; position: absolute; left: 29px; top: 48px; font: 700 10px/1 Arial, sans-serif; letter-spacing: .28em; transform: rotate(-90deg); color: rgba(114,47,50,.55); }
+.beijing-axis-card::before { content: "中轴"; }
 .art-card > p:not(.category):not(.tip):not(.route-note) { font-size: 12px; line-height: 1.85; }
 .route-note { margin-top: 14px; font-size: 10px; color: #773538; }
 .art-index {
@@ -714,6 +723,7 @@ blockquote small { display: block; color: var(--muted); font-size: 11px; line-he
 .dish-grid .aperitivo-card .category { color: #e5c989; }
 .dish-grid .aperitivo-card::before { content: "APERITIVO"; position: absolute; left: 32px; top: 65px; font: italic 42px/1 Baskerville, serif; color: rgba(255,255,255,.15); }
 .dish-grid .london-pub-card::before { content: "THE PUB"; }
+.dish-grid .beijing-breakfast-card::before { content: "早食"; }
 .dish-grid h3 .bilingual-name > span { color: #f2e8d3; font-size: 27px; }
 .dish-grid h3 .bilingual-name > small { color: #c9bfac; }
 .dish-grid p:not(.category) { max-width: 490px; color: #e0d5bf; font-size: 12px; line-height: 1.85; }
@@ -771,6 +781,12 @@ footer > div:nth-child(2) > p:last-child { margin: 0; color: #bdb3a0; font-size:
   --modern-accent-soft: #f2dfe1;
   --modern-accent-faint: rgba(185,41,53,.2);
   --modern-accent-mid: rgba(185,41,53,.5);
+}
+.theme-modern.destination-beijing {
+  --modern-accent: #b43a2c;
+  --modern-accent-soft: #f1e2dc;
+  --modern-accent-faint: rgba(180,58,44,.2);
+  --modern-accent-mid: rgba(180,58,44,.5);
 }
 
 .theme-modern .reading-progress { background: var(--modern-accent); box-shadow: none; }
@@ -895,6 +911,7 @@ footer > div:nth-child(2) > p:last-child { margin: 0; color: #bdb3a0; font-size:
 .theme-modern .art-card::after { display: none; }
 .theme-modern .last-supper { color: #fff; border: 0; background: #142833; }
 .theme-modern.destination-london .last-supper { background: #332027; }
+.theme-modern.destination-beijing .last-supper { background: #402620; }
 .theme-modern .last-supper .bilingual-name small,
 .theme-modern .last-supper p { color: #e5edf0; }
 .theme-modern .last-supper .category,
@@ -903,6 +920,9 @@ footer > div:nth-child(2) > p:last-child { margin: 0; color: #bdb3a0; font-size:
 .theme-modern.destination-london .last-supper .category,
 .theme-modern.destination-london .last-supper .art-index,
 .theme-modern.destination-london .last-supper a { color: #ee9ca3; }
+.theme-modern.destination-beijing .last-supper .category,
+.theme-modern.destination-beijing .last-supper .art-index,
+.theme-modern.destination-beijing .last-supper a { color: #e7b16f; }
 .theme-modern .art-index { color: var(--modern-accent-mid); font-family: Arial, sans-serif; font-style: normal; font-weight: 800; }
 .theme-modern .castle-card::before { color: var(--modern-accent-mid); }
 .theme-modern .route-note { color: var(--modern-accent); }
@@ -961,6 +981,7 @@ footer > div:nth-child(2) > p:last-child { margin: 0; color: #bdb3a0; font-size:
 .theme-modern .footer-title { font-family: Arial, sans-serif; font-style: normal; font-weight: 700; }
 .theme-modern .sources a { color: #8bc4e8; }
 .theme-modern.destination-london .sources a { color: #eea6ac; }
+.theme-modern.destination-beijing .sources a { color: #efb09f; }
 
 .book-index,
 .book-pages,
