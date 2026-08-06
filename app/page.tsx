@@ -179,7 +179,7 @@ function DestinationShelf({ country }: { country: Country }) {
 
     const triggerHoverTurn = () => {
       const now = Date.now();
-      if (now - lastHoverTurnAtRef.current < 1000) return;
+      if (now - lastHoverTurnAtRef.current < 500) return;
 
       lastHoverTurnAtRef.current = now;
       turnPage(direction);
