@@ -3,8 +3,9 @@
 import { useEffect, useRef, useState } from "react";
 import BeijingGuide from "./BeijingGuide";
 import LondonGuide from "./LondonGuide";
+import ShanghaiGuide from "./ShanghaiGuide";
 
-type DestinationKey = "milan" | "london" | "beijing";
+type DestinationKey = "milan" | "london" | "beijing" | "shanghai";
 type ThemeKey = "vintage" | "modern";
 
 const chapterSets = {
@@ -26,6 +27,13 @@ const chapterSets = {
     { id: "prologue", no: "00", local: "序章", zh: "PROLOGUE" },
     { id: "cultura", no: "01", local: "人文", zh: "HERITAGE" },
     { id: "natura", no: "02", local: "山水", zh: "NATURE" },
+    { id: "sapori", no: "03", local: "味道", zh: "FLAVOURS" },
+    { id: "itinerario", no: "04", local: "行程", zh: "ITINERARY" },
+  ],
+  shanghai: [
+    { id: "prologue", no: "00", local: "序章", zh: "PROLOGUE" },
+    { id: "cultura", no: "01", local: "人文", zh: "HERITAGE" },
+    { id: "natura", no: "02", local: "水岸", zh: "NATURE" },
     { id: "sapori", no: "03", local: "味道", zh: "FLAVOURS" },
     { id: "itinerario", no: "04", local: "行程", zh: "ITINERARY" },
   ],
@@ -83,12 +91,30 @@ const destinationMeta = {
     exportPagesLabel: "导出分页图片",
     longImageLabel: "导出完整长图",
   },
+  shanghai: {
+    edition: "TRAVEL BOOK № 10",
+    kicker: "行走中国 · Journey through China",
+    city: "SHANGHAI",
+    cityZh: "上海漫游志",
+    copy: <>一册关于江河、里弄<br />与海派餐桌的城市读本</>,
+    coordinates: ["31.2304° N", "121.4737° E"],
+    region: "上海市 · 中国",
+    slug: "shanghai",
+    documentTitle: "上海 · Shanghai 漫游志",
+    language: "zh-CN",
+    libraryLabel: "旅行书架",
+    indexLabel: "目录 · INDEX",
+    exportBookLabel: "导出城市读本",
+    exportPagesLabel: "导出分页图片",
+    longImageLabel: "导出完整长图",
+  },
 } as const;
 
 const guideComponents: Record<DestinationKey, React.ComponentType<{ theme: ThemeKey }> | null> = {
   milan: null,
   london: LondonGuide,
   beijing: BeijingGuide,
+  shanghai: ShanghaiGuide,
 };
 
 function isDestinationKey(value: string | null): value is DestinationKey {

@@ -165,13 +165,61 @@ img { display: block; width: 100%; }
 .country-heading h2 small { margin-left: 14px; color: #635c4e; font-size: 12px; font-weight: 400; letter-spacing: .18em; }
 .country-heading > b { padding-bottom: 5px; color: #766d5c; font: 700 7px/1 Arial, sans-serif; letter-spacing: .16em; }
 
+.destination-carousel { position: relative; }
 .destination-shelf {
-  display: grid;
-  grid-template-columns: minmax(0, 2.4fr) minmax(200px, .65fr);
+  display: flex;
   gap: 16px;
+  padding: 6px 0 16px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-inline: contain;
+  scroll-behavior: smooth;
+  scroll-padding-inline: 0;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
 }
+.destination-shelf::after {
+  content: "";
+  flex: 0 0 calc(25% + 12px);
+}
+.destination-shelf::-webkit-scrollbar { display: none; }
+.destination-shelf:focus-visible { outline: 2px solid #9b6f2b; outline-offset: 5px; }
+.shelf-turn {
+  position: absolute;
+  z-index: 6;
+  top: 16px;
+  bottom: 26px;
+  width: 42px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  color: #f2e3c2;
+  border: 1px solid rgba(231,211,168,.56);
+  background: linear-gradient(180deg, rgba(37,49,46,.62), rgba(37,49,46,.9), rgba(37,49,46,.62));
+  box-shadow: 0 7px 20px rgba(38,31,21,.24);
+  backdrop-filter: blur(5px);
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transform: scaleY(.94);
+  transition: opacity .28s ease, transform .28s ease, background .2s ease;
+}
+.shelf-turn-previous { left: 8px; }
+.shelf-turn-next { right: 8px; }
+.destination-carousel.controls-visible .shelf-turn:not(:disabled),
+.destination-carousel:focus-within .shelf-turn:not(:disabled) {
+  opacity: 1;
+  pointer-events: auto;
+  transform: scaleY(1);
+}
+.shelf-turn:hover { background: linear-gradient(180deg, rgba(116,82,38,.72), rgba(116,82,38,.96), rgba(116,82,38,.72)); }
+.shelf-turn:focus-visible { outline: 3px solid #b7873f; outline-offset: 3px; }
+.shelf-turn:disabled { opacity: 0; pointer-events: none; }
+.shelf-turn span { font: 400 38px/1 Baskerville, Georgia, serif; transform: translateY(-2px); }
 .destination-volume {
   position: relative;
+  flex: 0 0 calc(75% - 12px);
   min-height: 335px;
   display: grid;
   grid-template-columns: 45% 55%;
@@ -181,6 +229,8 @@ img { display: block; width: 100%; }
   background: rgba(244,235,211,.55);
   text-decoration: none;
   box-shadow: 0 9px 20px rgba(74,56,31,.11);
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
   transition: transform .25s ease, box-shadow .25s ease;
 }
 .destination-volume:hover {
@@ -262,6 +312,7 @@ img { display: block; width: 100%; }
 .style-entry a:focus-visible { outline: 3px solid #9b6f2b; outline-offset: 2px; }
 
 .future-volume {
+  flex: 0 0 calc(75% - 12px);
   min-height: 335px;
   display: flex;
   flex-direction: column;
@@ -271,6 +322,8 @@ img { display: block; width: 100%; }
   color: #8f816b;
   border: 1px dashed rgba(100,80,50,.4);
   background: rgba(238,226,198,.28);
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
   text-align: center;
 }
 .future-volume > span { width: 52px; height: 52px; border: 1px solid rgba(100,80,50,.33); border-radius: 50%; font: 300 31px/49px Georgia, serif; }
@@ -457,6 +510,14 @@ img { display: block; width: 100%; }
 }
 .destination-beijing .reading-progress { background: #d0a242; box-shadow: 0 0 9px rgba(208,162,66,.58); }
 .destination-beijing .book-index nav button.active::after { background: #d0a242; }
+.destination-shanghai .book-index {
+  background:
+    linear-gradient(rgba(24,52,53,.93), rgba(18,39,41,.98)),
+    radial-gradient(circle at 20% 20%, #4b7775, transparent 45%),
+    #1d4142;
+}
+.destination-shanghai .reading-progress { background: #d09a50; box-shadow: 0 0 9px rgba(208,154,80,.58); }
+.destination-shanghai .book-index nav button.active::after { background: #d09a50; }
 
 .book-index nav { position: relative; margin-top: 34px; }
 .nav-label { margin: 0 0 10px; color: #8f9a92; font: 600 9px/1 Arial, sans-serif; letter-spacing: .24em; }
@@ -669,6 +730,7 @@ blockquote small { display: block; color: var(--muted); font-size: 11px; line-he
 .castle-card { grid-area: castle; min-height: 170px; padding-left: 185px; }
 .castle-card::before { content: "CASTELLO"; position: absolute; left: 29px; top: 48px; font: 700 10px/1 Arial, sans-serif; letter-spacing: .28em; transform: rotate(-90deg); color: rgba(114,47,50,.55); }
 .beijing-axis-card::before { content: "中轴"; }
+.shanghai-lane-card::before { content: "里弄"; }
 .art-card > p:not(.category):not(.tip):not(.route-note) { font-size: 12px; line-height: 1.85; }
 .route-note { margin-top: 14px; font-size: 10px; color: #773538; }
 .art-index {
@@ -724,6 +786,7 @@ blockquote small { display: block; color: var(--muted); font-size: 11px; line-he
 .dish-grid .aperitivo-card::before { content: "APERITIVO"; position: absolute; left: 32px; top: 65px; font: italic 42px/1 Baskerville, serif; color: rgba(255,255,255,.15); }
 .dish-grid .london-pub-card::before { content: "THE PUB"; }
 .dish-grid .beijing-breakfast-card::before { content: "早食"; }
+.dish-grid .shanghai-breakfast-card::before { content: "早饭"; }
 .dish-grid h3 .bilingual-name > span { color: #f2e8d3; font-size: 27px; }
 .dish-grid h3 .bilingual-name > small { color: #c9bfac; }
 .dish-grid p:not(.category) { max-width: 490px; color: #e0d5bf; font-size: 12px; line-height: 1.85; }
@@ -787,6 +850,12 @@ footer > div:nth-child(2) > p:last-child { margin: 0; color: #bdb3a0; font-size:
   --modern-accent-soft: #f1e2dc;
   --modern-accent-faint: rgba(180,58,44,.2);
   --modern-accent-mid: rgba(180,58,44,.5);
+}
+.theme-modern.destination-shanghai {
+  --modern-accent: #187a83;
+  --modern-accent-soft: #dceced;
+  --modern-accent-faint: rgba(24,122,131,.2);
+  --modern-accent-mid: rgba(24,122,131,.5);
 }
 
 .theme-modern .reading-progress { background: var(--modern-accent); box-shadow: none; }
@@ -912,6 +981,7 @@ footer > div:nth-child(2) > p:last-child { margin: 0; color: #bdb3a0; font-size:
 .theme-modern .last-supper { color: #fff; border: 0; background: #142833; }
 .theme-modern.destination-london .last-supper { background: #332027; }
 .theme-modern.destination-beijing .last-supper { background: #402620; }
+.theme-modern.destination-shanghai .last-supper { background: #173b3e; }
 .theme-modern .last-supper .bilingual-name small,
 .theme-modern .last-supper p { color: #e5edf0; }
 .theme-modern .last-supper .category,
@@ -923,6 +993,9 @@ footer > div:nth-child(2) > p:last-child { margin: 0; color: #bdb3a0; font-size:
 .theme-modern.destination-beijing .last-supper .category,
 .theme-modern.destination-beijing .last-supper .art-index,
 .theme-modern.destination-beijing .last-supper a { color: #e7b16f; }
+.theme-modern.destination-shanghai .last-supper .category,
+.theme-modern.destination-shanghai .last-supper .art-index,
+.theme-modern.destination-shanghai .last-supper a { color: #e1bd78; }
 .theme-modern .art-index { color: var(--modern-accent-mid); font-family: Arial, sans-serif; font-style: normal; font-weight: 800; }
 .theme-modern .castle-card::before { color: var(--modern-accent-mid); }
 .theme-modern .route-note { color: var(--modern-accent); }
@@ -982,6 +1055,7 @@ footer > div:nth-child(2) > p:last-child { margin: 0; color: #bdb3a0; font-size:
 .theme-modern .sources a { color: #8bc4e8; }
 .theme-modern.destination-london .sources a { color: #eea6ac; }
 .theme-modern.destination-beijing .sources a { color: #efb09f; }
+.theme-modern.destination-shanghai .sources a { color: #8cd2d5; }
 
 .book-index,
 .book-pages,
@@ -1054,8 +1128,6 @@ footer {
 @media (max-width: 900px) {
   .library-hero { min-height: 610px; }
   .library-summary { position: relative; right: auto; bottom: auto; width: 100%; margin-top: 48px; }
-  .destination-shelf { grid-template-columns: 1fr; }
-  .future-volume { min-height: 120px; flex-direction: row; }
 }
 
 @media (max-width: 1050px) {
@@ -1086,6 +1158,10 @@ footer {
   .country-heading > b { display: none; }
   .country-no { font-size: 31px; }
   .country-heading h2 span { font-size: 28px; }
+  .shelf-turn { top: 13px; bottom: 23px; width: 36px; }
+  .shelf-turn-previous { left: 5px; }
+  .shelf-turn-next { right: 5px; }
+  .shelf-turn span { font-size: 32px; }
   .destination-volume { min-height: 570px; grid-template-columns: 1fr; grid-template-rows: 290px 1fr; }
   .volume-copy { padding: 35px 30px 30px; }
   .volume-copy h3 { margin-top: 22px; }

@@ -1,3 +1,7 @@
+"use client";
+
+import { useCallback, useEffect, useRef, useState } from "react";
+
 const catalogue = [
   {
     code: "01",
@@ -41,7 +45,7 @@ const catalogue = [
     code: "03",
     local: "Zhōngguó",
     zh: "中国",
-    note: "AXIS · GARDENS · FLAVOURS",
+    note: "AXIS · RIVERS · FLAVOURS",
     cities: [
       {
         slug: "beijing",
@@ -54,9 +58,158 @@ const catalogue = [
         alt: "北京故宫宫殿中轴线与朱墙金瓦",
         volume: "TRAVEL BOOK № 09",
       },
+      {
+        slug: "shanghai",
+        local: "Shànghǎi",
+        zh: "上海",
+        region: "上海市 · 华东",
+        description: "江河、里弄与天际线，一册在海派旧梦和当代节奏之间穿行的城市读本。",
+        vintageImage: "/images/shanghai-hero-vintage.png",
+        modernImage: "/images/shanghai-hero-modern.png",
+        alt: "上海外滩、黄浦江与浦东天际线",
+        volume: "TRAVEL BOOK № 10",
+      },
     ],
   },
 ] as const;
+
+type Country = (typeof catalogue)[number];
+
+function DestinationShelf({ country }: { country: Country }) {
+  const shelfRef = useRef<HTMLDivElement>(null);
+  const hideTimerRef = useRef<number | null>(null);
+  const [canPrevious, setCanPrevious] = useState(false);
+  const [canNext, setCanNext] = useState(true);
+  const [controlsVisible, setControlsVisible] = useState(true);
+
+  const updateNavigation = useCallback(() => {
+    const shelf = shelfRef.current;
+    if (!shelf) return;
+
+    setCanPrevious(shelf.scrollLeft > 4);
+    setCanNext(shelf.scrollLeft < shelf.scrollWidth - shelf.clientWidth - 4);
+  }, []);
+
+  const wakeControls = useCallback(() => {
+    setControlsVisible(true);
+    if (hideTimerRef.current !== null) {
+      window.clearTimeout(hideTimerRef.current);
+    }
+    hideTimerRef.current = window.setTimeout(() => {
+      setControlsVisible(false);
+    }, 1800);
+  }, []);
+
+  useEffect(() => {
+    updateNavigation();
+    wakeControls();
+    window.addEventListener("resize", updateNavigation);
+
+    return () => {
+      window.removeEventListener("resize", updateNavigation);
+      if (hideTimerRef.current !== null) {
+        window.clearTimeout(hideTimerRef.current);
+      }
+    };
+  }, [updateNavigation, wakeControls]);
+
+  const turnPage = (direction: -1 | 1) => {
+    const shelf = shelfRef.current;
+    if (!shelf) return;
+
+    const items = Array.from(
+      shelf.querySelectorAll<HTMLElement>(".destination-volume, .future-volume"),
+    );
+    if (!items.length) return;
+
+    const shelfLeft = shelf.getBoundingClientRect().left;
+    const itemLeft = (item: HTMLElement) =>
+      item.getBoundingClientRect().left - shelfLeft + shelf.scrollLeft;
+    const currentIndex = items.reduce((closest, item, index) => {
+      const currentDistance = Math.abs(itemLeft(items[closest]) - shelf.scrollLeft);
+      const nextDistance = Math.abs(itemLeft(item) - shelf.scrollLeft);
+      return nextDistance < currentDistance ? index : closest;
+    }, 0);
+    const targetIndex = Math.min(
+      items.length - 1,
+      Math.max(0, currentIndex + direction),
+    );
+
+    shelf.scrollTo({ left: itemLeft(items[targetIndex]), behavior: "smooth" });
+    wakeControls();
+  };
+
+  return (
+    <div
+      className={`destination-carousel${controlsVisible ? " controls-visible" : ""}`}
+      onPointerMove={wakeControls}
+      onPointerDown={wakeControls}
+      onFocusCapture={wakeControls}
+    >
+      <button
+        type="button"
+        className="shelf-turn shelf-turn-previous"
+        onClick={() => turnPage(-1)}
+        disabled={!canPrevious}
+        aria-label={`查看${country.zh}上一个目的地`}
+      >
+        <span aria-hidden="true">‹</span>
+      </button>
+
+      <div
+        ref={shelfRef}
+        className="destination-shelf"
+        role="region"
+        aria-label={`${country.zh}目的地横向列表`}
+        tabIndex={0}
+        onScroll={() => {
+          updateNavigation();
+          wakeControls();
+        }}
+      >
+        {country.cities.map((city) => (
+          <article
+            className={`destination-volume volume-${city.slug}`}
+            key={city.slug}
+          >
+            <figure className="volume-preview">
+              <div><img src={city.vintageImage} alt={`${city.alt}的复古插画版本`} /><span>VINTAGE</span></div>
+              <div><img src={city.modernImage} alt={`${city.alt}的现代实景摄影版本`} /><span>MODERN</span></div>
+              <figcaption>{city.volume}</figcaption>
+            </figure>
+            <div className="volume-copy">
+              <p>{city.region}</p>
+              <h3><span>{city.local}</span><small>{city.zh}</small></h3>
+              <p>{city.description}</p>
+              <div className="style-entry" aria-label={`选择${city.zh}攻略页面风格`}>
+                <a href={`/guide?city=${city.slug}&style=vintage`}>
+                  <b>VINTAGE</b><small>复古书页</small><i>→</i>
+                </a>
+                <a href={`/guide?city=${city.slug}&style=modern`}>
+                  <b>MODERN</b><small>实景影像</small><i>→</i>
+                </a>
+              </div>
+            </div>
+          </article>
+        ))}
+        <div className="future-volume" aria-label={`${country.zh}未来目的地预留位置`}>
+          <span>＋</span>
+          <p><b>NEXT DESTINATION</b><small>为下一座城市预留</small></p>
+        </div>
+      </div>
+
+      <button
+        type="button"
+        className="shelf-turn shelf-turn-next"
+        onClick={() => turnPage(1)}
+        disabled={!canNext}
+        aria-label={`查看${country.zh}下一个目的地`}
+      >
+        <span aria-hidden="true">›</span>
+      </button>
+    </div>
+  );
+}
 
 export default function CataloguePage() {
   const cityCount = catalogue.reduce((sum, country) => sum + country.cities.length, 0);
@@ -93,37 +246,7 @@ export default function CataloguePage() {
               <b>{country.cities.length} {country.cities.length === 1 ? "VOLUME" : "VOLUMES"}</b>
             </header>
 
-            <div className="destination-shelf">
-              {country.cities.map((city) => (
-                <article
-                  className={`destination-volume volume-${city.slug}`}
-                  key={city.slug}
-                >
-                  <figure className="volume-preview">
-                    <div><img src={city.vintageImage} alt={`${city.alt}的复古插画版本`} /><span>VINTAGE</span></div>
-                    <div><img src={city.modernImage} alt={`${city.alt}的现代实景摄影版本`} /><span>MODERN</span></div>
-                    <figcaption>{city.volume}</figcaption>
-                  </figure>
-                  <div className="volume-copy">
-                    <p>{city.region}</p>
-                    <h3><span>{city.local}</span><small>{city.zh}</small></h3>
-                    <p>{city.description}</p>
-                    <div className="style-entry" aria-label={`选择${city.zh}攻略页面风格`}>
-                      <a href={`/guide?city=${city.slug}&style=vintage`}>
-                        <b>VINTAGE</b><small>复古书页</small><i>→</i>
-                      </a>
-                      <a href={`/guide?city=${city.slug}&style=modern`}>
-                        <b>MODERN</b><small>实景影像</small><i>→</i>
-                      </a>
-                    </div>
-                  </div>
-                </article>
-              ))}
-              <div className="future-volume" aria-label={`${country.zh}未来目的地预留位置`}>
-                <span>＋</span>
-                <p><b>NEXT DESTINATION</b><small>为下一座城市预留</small></p>
-              </div>
-            </div>
+            <DestinationShelf country={country} />
           </section>
         ))}
       </div>
