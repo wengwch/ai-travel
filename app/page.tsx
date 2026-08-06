@@ -78,6 +78,9 @@ type Country = (typeof catalogue)[number];
 function DestinationShelf({ country }: { country: Country }) {
   const shelfRef = useRef<HTMLDivElement>(null);
   const hideTimerRef = useRef<number | null>(null);
+  const hoverTurnTimerRef = useRef<number | null>(null);
+  const hoverDirectionRef = useRef<-1 | 1 | null>(null);
+  const lastHoverTurnAtRef = useRef(0);
   const [canPrevious, setCanPrevious] = useState(false);
   const [canNext, setCanNext] = useState(true);
   const [controlsVisible, setControlsVisible] = useState(true);
@@ -86,8 +89,18 @@ function DestinationShelf({ country }: { country: Country }) {
     const shelf = shelfRef.current;
     if (!shelf) return;
 
+    const items = shelf.querySelectorAll<HTMLElement>(
+      ".destination-volume, .future-volume",
+    );
+    const lastItem = items[items.length - 1];
+    const lastItemLeft = lastItem
+      ? lastItem.getBoundingClientRect().left -
+        shelf.getBoundingClientRect().left +
+        shelf.scrollLeft
+      : 0;
+
     setCanPrevious(shelf.scrollLeft > 4);
-    setCanNext(shelf.scrollLeft < shelf.scrollWidth - shelf.clientWidth - 4);
+    setCanNext(shelf.scrollLeft < lastItemLeft - 4);
   }, []);
 
   const wakeControls = useCallback(() => {
@@ -100,6 +113,23 @@ function DestinationShelf({ country }: { country: Country }) {
     }, 1800);
   }, []);
 
+  const pinControlsVisible = useCallback(() => {
+    setControlsVisible(true);
+    if (hideTimerRef.current !== null) {
+      window.clearTimeout(hideTimerRef.current);
+      hideTimerRef.current = null;
+    }
+  }, []);
+
+  const stopHoverTurning = useCallback(() => {
+    if (hoverTurnTimerRef.current !== null) {
+      window.clearInterval(hoverTurnTimerRef.current);
+      hoverTurnTimerRef.current = null;
+    }
+    hoverDirectionRef.current = null;
+    wakeControls();
+  }, [wakeControls]);
+
   useEffect(() => {
     updateNavigation();
     wakeControls();
@@ -109,6 +139,9 @@ function DestinationShelf({ country }: { country: Country }) {
       window.removeEventListener("resize", updateNavigation);
       if (hideTimerRef.current !== null) {
         window.clearTimeout(hideTimerRef.current);
+      }
+      if (hoverTurnTimerRef.current !== null) {
+        window.clearInterval(hoverTurnTimerRef.current);
       }
     };
   }, [updateNavigation, wakeControls]);
@@ -139,6 +172,36 @@ function DestinationShelf({ country }: { country: Country }) {
     wakeControls();
   };
 
+  const startHoverTurning = (direction: -1 | 1) => {
+    if (hoverTurnTimerRef.current !== null) {
+      window.clearInterval(hoverTurnTimerRef.current);
+    }
+
+    const triggerHoverTurn = () => {
+      const now = Date.now();
+      if (now - lastHoverTurnAtRef.current < 1000) return;
+
+      lastHoverTurnAtRef.current = now;
+      turnPage(direction);
+    };
+
+    hoverDirectionRef.current = direction;
+    triggerHoverTurn();
+    pinControlsVisible();
+    hoverTurnTimerRef.current = window.setInterval(() => {
+      triggerHoverTurn();
+      pinControlsVisible();
+    }, 1500);
+  };
+
+  useEffect(() => {
+    const reachedHoverEdge =
+      (hoverDirectionRef.current === -1 && !canPrevious) ||
+      (hoverDirectionRef.current === 1 && !canNext);
+
+    if (reachedHoverEdge) stopHoverTurning();
+  }, [canPrevious, canNext, stopHoverTurning]);
+
   return (
     <div
       className={`destination-carousel${controlsVisible ? " controls-visible" : ""}`}
@@ -149,7 +212,16 @@ function DestinationShelf({ country }: { country: Country }) {
       <button
         type="button"
         className="shelf-turn shelf-turn-previous"
-        onClick={() => turnPage(-1)}
+        onPointerEnter={(event) => {
+          if (event.pointerType !== "touch") startHoverTurning(-1);
+        }}
+        onPointerLeave={stopHoverTurning}
+        onPointerUp={(event) => {
+          if (event.pointerType === "touch") turnPage(-1);
+        }}
+        onClick={(event) => {
+          if (event.detail === 0) turnPage(-1);
+        }}
         disabled={!canPrevious}
         aria-label={`查看${country.zh}上一个目的地`}
       >
@@ -164,7 +236,11 @@ function DestinationShelf({ country }: { country: Country }) {
         tabIndex={0}
         onScroll={() => {
           updateNavigation();
-          wakeControls();
+          if (hoverDirectionRef.current === null) {
+            wakeControls();
+          } else {
+            pinControlsVisible();
+          }
         }}
       >
         {country.cities.map((city) => (
@@ -201,7 +277,16 @@ function DestinationShelf({ country }: { country: Country }) {
       <button
         type="button"
         className="shelf-turn shelf-turn-next"
-        onClick={() => turnPage(1)}
+        onPointerEnter={(event) => {
+          if (event.pointerType !== "touch") startHoverTurning(1);
+        }}
+        onPointerLeave={stopHoverTurning}
+        onPointerUp={(event) => {
+          if (event.pointerType === "touch") turnPage(1);
+        }}
+        onClick={(event) => {
+          if (event.detail === 0) turnPage(1);
+        }}
         disabled={!canNext}
         aria-label={`查看${country.zh}下一个目的地`}
       >
