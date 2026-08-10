@@ -28,7 +28,7 @@ export default function BeijingGuide({ theme }: { theme: "vintage" | "modern" })
         <div className="hero-title">
           <p className="eyebrow">一条中轴，半部中国城市史</p>
           <h2><span lang="zh-CN">北京</span><small>BEIJING</small></h2>
-          <p className="hero-subtitle">在城门、胡同与山水之间</p>
+          <p className="hero-subtitle">城门打开历史，胡同接住日常</p>
         </div>
 
         <figure className="hero-figure">
@@ -47,7 +47,7 @@ export default function BeijingGuide({ theme }: { theme: "vintage" | "modern" })
           <div className="lead-copy">
             <span className="drop-cap">北</span>
             <p>京的尺度常让初来者误判距离：地图上相邻的两座门，可能隔着一段漫长城墙；一条笔直中轴，又能把祭坛、宫城、市井与钟鼓楼收进同一套秩序。</p>
-            <p>阅读这座城，最好在宏大与日常之间来回切换。清晨穿过故宫院落，午后转进胡同看灰砖门楼，傍晚登景山或沿什刹海散步，才会发现帝都的线条也容得下院墙里的树影与饭馆里的烟火。</p>
+            <p>游北京像调焦：清晨在故宫把镜头拉远，看宫殿沿中轴层层铺开；午后转进胡同贴近灰砖门楼；傍晚登景山或散步什刹海，让院墙树影与饭馆烟火重新填满画面。</p>
           </div>
           <blockquote>
             <span>“</span>

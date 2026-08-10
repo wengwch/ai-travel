@@ -28,7 +28,7 @@ export default function ShanghaiGuide({ theme }: { theme: "vintage" | "modern" }
         <div className="hero-title">
           <p className="eyebrow">江海相逢，旧街与天际线并行</p>
           <h2><span lang="zh-CN">上海</span><small>SHANGHAI</small></h2>
-          <p className="hero-subtitle">在河流、里弄与霓虹之间</p>
+          <p className="hero-subtitle">江潮翻页，霓虹落款</p>
         </div>
 
         <figure className="hero-figure">
@@ -47,7 +47,7 @@ export default function ShanghaiGuide({ theme }: { theme: "vintage" | "modern" }
           <div className="lead-copy">
             <span className="drop-cap">上</span>
             <p>海最动人的地方，不在于“新”或“旧”哪一边胜出，而在于它们总在同一条街、同一段河岸上彼此映照。外滩的石材立面望向陆家嘴玻璃塔群，石库门里弄转角又接上一间小咖啡馆。</p>
-            <p>阅读上海，最好跟着水与街区移动：清晨从老城厢进入，午后沿梧桐树影走过衡复风貌区，傍晚把脚步交给苏州河或黄浦江，等城市灯光在潮湿空气里慢慢亮起。</p>
+            <p>把行程交给一张交通卡和一双好走的鞋：清晨钻进老城厢，午后沿梧桐树影穿过衡复风貌区，傍晚随便挑苏州河或黄浦江的一岸，看灯光在潮湿空气里一盏盏醒来。</p>
           </div>
           <blockquote>
             <span>“</span>

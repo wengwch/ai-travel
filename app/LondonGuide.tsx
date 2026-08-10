@@ -28,7 +28,7 @@ export default function LondonGuide({ theme }: { theme: "vintage" | "modern" }) 
         <div className="hero-title">
           <p className="eyebrow">THE CITY OF FOG, RIVER AND STORIES</p>
           <h2><span lang="en-GB">London</span><small>伦敦</small></h2>
-          <p className="hero-subtitle">在雾、河流与故事之间</p>
+          <p className="hero-subtitle">钟声报时，潮汐换幕</p>
         </div>
 
         <figure className="hero-figure">
@@ -47,7 +47,7 @@ export default function LondonGuide({ theme }: { theme: "vintage" | "modern" }) 
           <div className="lead-copy">
             <span className="drop-cap">伦</span>
             <p>敦是一座由许多村庄、时代与口音拼成的城市。王室仪典与街头市场只隔几站地铁，罗马城墙的残迹旁升起玻璃高楼，而泰晤士河始终把这些碎片串在一起。</p>
-            <p>阅读伦敦，最好跟着河流与街区移动：清晨从威斯敏斯特出发，午后走进博物馆与书店，傍晚越过桥去南岸，最后在一间有木吧台的老酒馆里结束一天。</p>
+            <p>在伦敦，不必把路线钉得太死。让地铁负责长距离，让桥和双脚负责惊喜：上午听威斯敏斯特的钟声，午后钻进博物馆与书店，入夜后由一间木吧台老酒馆决定终点。</p>
           </div>
           <blockquote>
             <span>“</span>

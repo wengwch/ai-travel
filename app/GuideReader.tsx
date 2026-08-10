@@ -2,10 +2,11 @@
 
 import { useEffect, useRef, useState } from "react";
 import BeijingGuide from "./BeijingGuide";
+import GuangzhouGuide from "./GuangzhouGuide";
 import LondonGuide from "./LondonGuide";
 import ShanghaiGuide from "./ShanghaiGuide";
 
-type DestinationKey = "milan" | "london" | "beijing" | "shanghai";
+type DestinationKey = "milan" | "london" | "beijing" | "shanghai" | "guangzhou";
 type ThemeKey = "vintage" | "modern";
 
 const chapterSets = {
@@ -37,15 +38,22 @@ const chapterSets = {
     { id: "sapori", no: "03", local: "味道", zh: "FLAVOURS" },
     { id: "itinerario", no: "04", local: "行程", zh: "ITINERARY" },
   ],
+  guangzhou: [
+    { id: "prologue", no: "00", local: "序章", zh: "PROLOGUE" },
+    { id: "cultura", no: "01", local: "人文", zh: "HERITAGE" },
+    { id: "natura", no: "02", local: "云水", zh: "NATURE" },
+    { id: "sapori", no: "03", local: "味道", zh: "FLAVOURS" },
+    { id: "itinerario", no: "04", local: "行程", zh: "ITINERARY" },
+  ],
 } as const;
 
 const destinationMeta = {
   milan: {
     edition: "TACCUINO № 07",
-    kicker: "Viaggio in Italia",
+    kicker: ["Viaggio in Italia"],
     city: "MILANO",
     cityZh: "米兰漫游志",
-    copy: <>一册关于尖塔、运河<br />与藏红花香气的城市读本</>,
+    copy: <>尖塔负责仰望<br />黄电车负责准时抵达</>,
     coordinates: ["45.4642° N", "9.1900° E"],
     region: "Lombardia · Italia",
     slug: "milano",
@@ -59,10 +67,10 @@ const destinationMeta = {
   },
   london: {
     edition: "TRAVEL BOOK № 08",
-    kicker: "Journey through Britain",
+    kicker: ["Journey through Britain"],
     city: "LONDON",
     cityZh: "伦敦漫游志",
-    copy: <>一册关于钟声、河流<br />与下午茶时光的城市读本</>,
+    copy: <>钟声准点响起<br />街区从不按套路出牌</>,
     coordinates: ["51.5072° N", "0.1276° W"],
     region: "England · United Kingdom",
     slug: "london",
@@ -76,10 +84,10 @@ const destinationMeta = {
   },
   beijing: {
     edition: "TRAVEL BOOK № 09",
-    kicker: "行走中国 · Journey through China",
+    kicker: ["行走中国", "Journey through China"],
     city: "BEIJING",
     cityZh: "北京漫游志",
-    copy: <>一册关于城门、胡同<br />与皇家园林的城市读本</>,
+    copy: <>中轴写下秩序<br />胡同收藏日常</>,
     coordinates: ["39.9042° N", "116.4074° E"],
     region: "北京市 · 中国",
     slug: "beijing",
@@ -93,14 +101,31 @@ const destinationMeta = {
   },
   shanghai: {
     edition: "TRAVEL BOOK № 10",
-    kicker: "行走中国 · Journey through China",
+    kicker: ["行走中国", "Journey through China"],
     city: "SHANGHAI",
     cityZh: "上海漫游志",
-    copy: <>一册关于江河、里弄<br />与海派餐桌的城市读本</>,
+    copy: <>江潮不停翻页<br />里弄总有下一场故事</>,
     coordinates: ["31.2304° N", "121.4737° E"],
     region: "上海市 · 中国",
     slug: "shanghai",
     documentTitle: "上海 · Shanghai 漫游志",
+    language: "zh-CN",
+    libraryLabel: "旅行书架",
+    indexLabel: "目录 · INDEX",
+    exportBookLabel: "导出城市读本",
+    exportPagesLabel: "导出分页图片",
+    longImageLabel: "导出完整长图",
+  },
+  guangzhou: {
+    edition: "TRAVEL BOOK № 11",
+    kicker: ["行走中国", "Journey through China"],
+    city: "GUANGZHOU",
+    cityZh: "广州漫游志",
+    copy: <>早茶不赶时间<br />珠江晚风自会续杯</>,
+    coordinates: ["23.1291° N", "113.2644° E"],
+    region: "广州市 · 广东 · 中国",
+    slug: "guangzhou",
+    documentTitle: "广州 · Guangzhou 漫游志",
     language: "zh-CN",
     libraryLabel: "旅行书架",
     indexLabel: "目录 · INDEX",
@@ -115,6 +140,7 @@ const guideComponents: Record<DestinationKey, React.ComponentType<{ theme: Theme
   london: LondonGuide,
   beijing: BeijingGuide,
   shanghai: ShanghaiGuide,
+  guangzhou: GuangzhouGuide,
 };
 
 function isDestinationKey(value: string | null): value is DestinationKey {
@@ -377,7 +403,11 @@ export default function Home() {
       <aside className={`book-index ${menuOpen ? "is-open" : ""}`} id="book-index">
         <div className="index-brand">
           <span className="edition">{currentDestination.edition}</span>
-          <p className="brand-kicker">{currentDestination.kicker}</p>
+          <p className="brand-kicker">
+            {currentDestination.kicker.map((line) => (
+              <span key={line}>{line}</span>
+            ))}
+          </p>
           <h1>{currentDestination.city}</h1>
           <p className="brand-cn">{currentDestination.cityZh}</p>
           <div className="brand-rule"><i /></div>
@@ -487,7 +517,7 @@ export default function Home() {
           <div className="hero-title">
             <p className="eyebrow">LA CITTÀ CHE CORRE E CONSERVA</p>
             <h2><span lang="it">Milano</span><small>米兰</small></h2>
-            <p className="hero-subtitle">疾行，也珍藏的城市</p>
+            <p className="hero-subtitle">尖塔向上，黄电车向前</p>
           </div>
 
           <figure className="hero-figure">
@@ -506,7 +536,7 @@ export default function Home() {
             <div className="lead-copy">
               <span className="drop-cap">米</span>
               <p>兰很少把全部魅力交给匆匆过客。它的表面是时装周、玻璃幕墙与准点抵达的电车，内里却保存着哥特尖塔、文艺复兴的餐厅壁画，以及午后吧台上轻响的瓷杯。</p>
-              <p>读这座城，最好从中心向外缓慢展开：先抬头看大教堂，再走入布雷拉的窄街；傍晚沿运河散步，让一杯 <i lang="it">aperitivo</i> 把白昼交给夜色。</p>
+              <p>给米兰一天，不妨把目光先交给大教堂屋顶，再把脚步交给布雷拉的窄街。到了傍晚，运河边的一杯 <i lang="it">aperitivo</i> 会替你把白昼利落地翻到夜色。</p>
             </div>
             <blockquote>
               <span>“</span>
