@@ -421,11 +421,10 @@ img { display: block; width: 100%; }
 }
 .index-brand h1 {
   margin: 0;
-  font: 400 47px/.95 Baskerville, "Times New Roman", serif;
-  letter-spacing: .08em;
+  font: 400 38px/.95 Baskerville, "Times New Roman", serif;
+  letter-spacing: .035em;
 }
-.destination-guangzhou .index-brand h1 { font-size: 38px; letter-spacing: .035em; }
-.theme-vintage.destination-guangzhou .index-brand h1 { font-size: 34px; letter-spacing: 0; }
+.theme-vintage .index-brand h1 { font-size: 34px; letter-spacing: 0; }
 .brand-cn { margin: 9px 0 17px; font-size: 13px; letter-spacing: .5em; }
 .brand-rule { display: flex; align-items: center; gap: 9px; }
 .brand-rule::before, .brand-rule::after { content: ""; height: 1px; flex: 1; background: #9e8b60; opacity: .55; }
@@ -1160,7 +1159,7 @@ footer {
 @media (max-height: 850px) and (min-width: 761px) {
   .book-index { padding-top: 26px; padding-bottom: 18px; }
   .edition { margin-bottom: 12px; }
-  .index-brand h1 { font-size: 40px; }
+  .index-brand h1 { font-size: 38px; }
   .brand-cn { margin-top: 7px; margin-bottom: 12px; }
   .brand-copy { display: none; }
   .library-return { padding-top: 5px; padding-bottom: 5px; }
@@ -1181,8 +1180,8 @@ footer {
 @media (max-width: 1050px) {
   .theme-transition-layer { left: 255px; }
   .book-index { width: 255px; padding-left: 28px; padding-right: 28px; }
-  .destination-guangzhou .index-brand h1 { font-size: 32px; letter-spacing: .02em; }
-  .theme-vintage.destination-guangzhou .index-brand h1 { font-size: 28px; letter-spacing: 0; }
+  .theme-modern .index-brand h1 { font-size: 32px; letter-spacing: .02em; }
+  .theme-vintage .index-brand h1 { font-size: 28px; letter-spacing: 0; }
   .book-pages { margin-left: 255px; }
   .prologue-grid { grid-template-columns: 1.2fr .8fr; }
   .fact-card { grid-column: 1 / -1; }
