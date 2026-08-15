@@ -528,6 +528,38 @@ img { display: block; width: 100%; }
 }
 .destination-london .reading-progress { background: #9f3e42; box-shadow: 0 0 9px rgba(159,62,66,.6); }
 .destination-london .book-index nav button.active::after { background: #a94f51; }
+.destination-edinburgh .book-index {
+  background:
+    linear-gradient(rgba(41,44,58,.94), rgba(27,31,42,.98)),
+    radial-gradient(circle at 20% 20%, #655b76, transparent 45%),
+    #303442;
+}
+.destination-edinburgh .reading-progress { background: #a78a65; box-shadow: 0 0 9px rgba(167,138,101,.58); }
+.destination-edinburgh .book-index nav button.active::after { background: #a78a65; }
+.destination-paris .book-index {
+  background:
+    linear-gradient(rgba(48,42,55,.94), rgba(32,30,40,.98)),
+    radial-gradient(circle at 20% 20%, #78505c, transparent 45%),
+    #38313e;
+}
+.destination-paris .reading-progress { background: #c79064; box-shadow: 0 0 9px rgba(199,144,100,.58); }
+.destination-paris .book-index nav button.active::after { background: #c79064; }
+.destination-kyoto .book-index {
+  background:
+    linear-gradient(rgba(37,47,38,.94), rgba(26,35,30,.98)),
+    radial-gradient(circle at 20% 20%, #5e705b, transparent 45%),
+    #2d3b31;
+}
+.destination-kyoto .reading-progress { background: #c5664d; box-shadow: 0 0 9px rgba(197,102,77,.58); }
+.destination-kyoto .book-index nav button.active::after { background: #c5664d; }
+.destination-rome .book-index {
+  background:
+    linear-gradient(rgba(66,39,30,.92), rgba(45,27,23,.98)),
+    radial-gradient(circle at 20% 20%, #8d6650, transparent 45%),
+    #4f3028;
+}
+.destination-rome .reading-progress { background: #d29a55; box-shadow: 0 0 9px rgba(210,154,85,.58); }
+.destination-rome .book-index nav button.active::after { background: #d29a55; }
 .destination-beijing .book-index {
   background:
     linear-gradient(rgba(61,31,27,.93), rgba(45,24,22,.98)),
@@ -766,6 +798,10 @@ blockquote small { display: block; color: var(--muted); font-size: 11px; line-he
 .beijing-axis-card::before { content: "中轴"; }
 .shanghai-lane-card::before { content: "里弄"; }
 .guangzhou-arcade-card::before { content: "骑楼"; }
+.rome-dome-card::before { content: "SPQR"; }
+.edinburgh-close-card::before { content: "CLOSE"; }
+.paris-passage-card::before { content: "PASSAGE"; }
+.kyoto-machiya-card::before { content: "町家"; }
 .art-card > p:not(.category):not(.tip):not(.route-note) { font-size: 12px; line-height: 1.85; }
 .route-note { margin-top: 14px; font-size: 10px; color: #773538; }
 .art-index {
@@ -823,6 +859,10 @@ blockquote small { display: block; color: var(--muted); font-size: 11px; line-he
 .dish-grid .beijing-breakfast-card::before { content: "早食"; }
 .dish-grid .shanghai-breakfast-card::before { content: "早饭"; }
 .dish-grid .guangzhou-yumcha-card::before { content: "饮茶"; }
+.dish-grid .rome-passeggiata-card::before { content: "PASSEGGIATA"; font-size: 36px; }
+.dish-grid .edinburgh-pub-card::before { content: "THE PUB"; }
+.dish-grid .paris-apero-card::before { content: "L’APÉRO"; }
+.dish-grid .kyoto-tea-card::before { content: "茶の時間"; }
 .dish-grid h3 .bilingual-name > span { color: #f2e8d3; font-size: 27px; }
 .dish-grid h3 .bilingual-name > small { color: #c9bfac; }
 .dish-grid p:not(.category) { max-width: 490px; color: #e0d5bf; font-size: 12px; line-height: 1.85; }
@@ -880,6 +920,30 @@ footer > div:nth-child(2) > p:last-child { margin: 0; color: #bdb3a0; font-size:
   --modern-accent-soft: #f2dfe1;
   --modern-accent-faint: rgba(185,41,53,.2);
   --modern-accent-mid: rgba(185,41,53,.5);
+}
+.theme-modern.destination-edinburgh {
+  --modern-accent: #72567f;
+  --modern-accent-soft: #e9e2ed;
+  --modern-accent-faint: rgba(114,86,127,.2);
+  --modern-accent-mid: rgba(114,86,127,.5);
+}
+.theme-modern.destination-paris {
+  --modern-accent: #b94855;
+  --modern-accent-soft: #f1e1e4;
+  --modern-accent-faint: rgba(185,72,85,.2);
+  --modern-accent-mid: rgba(185,72,85,.5);
+}
+.theme-modern.destination-kyoto {
+  --modern-accent: #b34b3b;
+  --modern-accent-soft: #efe3de;
+  --modern-accent-faint: rgba(179,75,59,.2);
+  --modern-accent-mid: rgba(179,75,59,.5);
+}
+.theme-modern.destination-rome {
+  --modern-accent: #b6553d;
+  --modern-accent-soft: #f0e2dc;
+  --modern-accent-faint: rgba(182,85,61,.2);
+  --modern-accent-mid: rgba(182,85,61,.5);
 }
 .theme-modern.destination-beijing {
   --modern-accent: #b43a2c;
@@ -1022,6 +1086,10 @@ footer > div:nth-child(2) > p:last-child { margin: 0; color: #bdb3a0; font-size:
 .theme-modern .art-card::after { display: none; }
 .theme-modern .last-supper { color: #fff; border: 0; background: #142833; }
 .theme-modern.destination-london .last-supper { background: #332027; }
+.theme-modern.destination-edinburgh .last-supper { background: #302b3b; }
+.theme-modern.destination-paris .last-supper { background: #40262e; }
+.theme-modern.destination-kyoto .last-supper { background: #29372d; }
+.theme-modern.destination-rome .last-supper { background: #493027; }
 .theme-modern.destination-beijing .last-supper { background: #402620; }
 .theme-modern.destination-shanghai .last-supper { background: #173b3e; }
 .theme-modern.destination-guangzhou .last-supper { background: #263e32; }
@@ -1033,6 +1101,18 @@ footer > div:nth-child(2) > p:last-child { margin: 0; color: #bdb3a0; font-size:
 .theme-modern.destination-london .last-supper .category,
 .theme-modern.destination-london .last-supper .art-index,
 .theme-modern.destination-london .last-supper a { color: #ee9ca3; }
+.theme-modern.destination-edinburgh .last-supper .category,
+.theme-modern.destination-edinburgh .last-supper .art-index,
+.theme-modern.destination-edinburgh .last-supper a { color: #d7b7df; }
+.theme-modern.destination-paris .last-supper .category,
+.theme-modern.destination-paris .last-supper .art-index,
+.theme-modern.destination-paris .last-supper a { color: #efabb3; }
+.theme-modern.destination-kyoto .last-supper .category,
+.theme-modern.destination-kyoto .last-supper .art-index,
+.theme-modern.destination-kyoto .last-supper a { color: #e4b47e; }
+.theme-modern.destination-rome .last-supper .category,
+.theme-modern.destination-rome .last-supper .art-index,
+.theme-modern.destination-rome .last-supper a { color: #efb37f; }
 .theme-modern.destination-beijing .last-supper .category,
 .theme-modern.destination-beijing .last-supper .art-index,
 .theme-modern.destination-beijing .last-supper a { color: #e7b16f; }
@@ -1100,6 +1180,10 @@ footer > div:nth-child(2) > p:last-child { margin: 0; color: #bdb3a0; font-size:
 .theme-modern .footer-title { font-family: Arial, sans-serif; font-style: normal; font-weight: 700; }
 .theme-modern .sources a { color: #8bc4e8; }
 .theme-modern.destination-london .sources a { color: #eea6ac; }
+.theme-modern.destination-edinburgh .sources a { color: #d6b5df; }
+.theme-modern.destination-paris .sources a { color: #efabb3; }
+.theme-modern.destination-kyoto .sources a { color: #e7b48d; }
+.theme-modern.destination-rome .sources a { color: #efb094; }
 .theme-modern.destination-beijing .sources a { color: #efb09f; }
 .theme-modern.destination-shanghai .sources a { color: #8cd2d5; }
 .theme-modern.destination-guangzhou .sources a { color: #efab91; }

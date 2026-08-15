@@ -2,15 +2,26 @@
 
 import { useEffect, useRef, useState } from "react";
 import BeijingGuide from "./BeijingGuide";
+import EdinburghGuide from "./EdinburghGuide";
 import GuangzhouGuide from "./GuangzhouGuide";
+import KyotoGuide from "./KyotoGuide";
 import LondonGuide from "./LondonGuide";
+import ParisGuide from "./ParisGuide";
+import RomeGuide from "./RomeGuide";
 import ShanghaiGuide from "./ShanghaiGuide";
 
-type DestinationKey = "milan" | "london" | "beijing" | "shanghai" | "guangzhou";
+type DestinationKey = "milan" | "rome" | "london" | "edinburgh" | "paris" | "kyoto" | "beijing" | "shanghai" | "guangzhou";
 type ThemeKey = "vintage" | "modern";
 
 const chapterSets = {
   milan: [
+    { id: "prologue", no: "00", local: "Prologo", zh: "序章" },
+    { id: "cultura", no: "01", local: "Cultura", zh: "人文" },
+    { id: "natura", no: "02", local: "Natura", zh: "自然" },
+    { id: "sapori", no: "03", local: "Sapori", zh: "美食" },
+    { id: "itinerario", no: "04", local: "Itinerario", zh: "行程" },
+  ],
+  rome: [
     { id: "prologue", no: "00", local: "Prologo", zh: "序章" },
     { id: "cultura", no: "01", local: "Cultura", zh: "人文" },
     { id: "natura", no: "02", local: "Natura", zh: "自然" },
@@ -23,6 +34,27 @@ const chapterSets = {
     { id: "natura", no: "02", local: "Nature", zh: "自然" },
     { id: "sapori", no: "03", local: "Flavours", zh: "美食" },
     { id: "itinerario", no: "04", local: "Itinerary", zh: "行程" },
+  ],
+  edinburgh: [
+    { id: "prologue", no: "00", local: "Foreword", zh: "序章" },
+    { id: "cultura", no: "01", local: "Heritage", zh: "人文" },
+    { id: "natura", no: "02", local: "Nature", zh: "自然" },
+    { id: "sapori", no: "03", local: "Flavours", zh: "美食" },
+    { id: "itinerario", no: "04", local: "Itinerary", zh: "行程" },
+  ],
+  paris: [
+    { id: "prologue", no: "00", local: "Prologue", zh: "序章" },
+    { id: "cultura", no: "01", local: "Culture", zh: "人文" },
+    { id: "natura", no: "02", local: "Nature", zh: "自然" },
+    { id: "sapori", no: "03", local: "Saveurs", zh: "美食" },
+    { id: "itinerario", no: "04", local: "Itinéraire", zh: "行程" },
+  ],
+  kyoto: [
+    { id: "prologue", no: "00", local: "序章", zh: "PROLOGUE" },
+    { id: "cultura", no: "01", local: "文化", zh: "HERITAGE" },
+    { id: "natura", no: "02", local: "自然", zh: "NATURE" },
+    { id: "sapori", no: "03", local: "味わい", zh: "FLAVOURS" },
+    { id: "itinerario", no: "04", local: "旅程", zh: "ITINERARY" },
   ],
   beijing: [
     { id: "prologue", no: "00", local: "序章", zh: "PROLOGUE" },
@@ -65,6 +97,23 @@ const destinationMeta = {
     exportPagesLabel: "Esporta immagine",
     longImageLabel: "Immagine lunga",
   },
+  rome: {
+    edition: "TACCUINO № 12",
+    kicker: ["Viaggio in Italia"],
+    city: "ROMA",
+    cityZh: "罗马漫游志",
+    copy: <>石头从不沉默<br />黄昏总会替它开口</>,
+    coordinates: ["41.9028° N", "12.4964° E"],
+    region: "Lazio · Italia",
+    slug: "rome",
+    documentTitle: "Roma · 罗马漫游志",
+    language: "it",
+    libraryLabel: "Archivio di viaggio",
+    indexLabel: "INDICE · 目录",
+    exportBookLabel: "Esporta il libro",
+    exportPagesLabel: "Esporta immagine",
+    longImageLabel: "Immagine lunga",
+  },
   london: {
     edition: "TRAVEL BOOK № 08",
     kicker: ["Journey through Britain"],
@@ -81,6 +130,57 @@ const destinationMeta = {
     exportBookLabel: "Export the book",
     exportPagesLabel: "Export pages",
     longImageLabel: "Long image",
+  },
+  edinburgh: {
+    edition: "TRAVEL BOOK № 13",
+    kicker: ["Journey through Scotland"],
+    city: "EDINBURGH",
+    cityZh: "爱丁堡漫游志",
+    copy: <>风从海湾爬上山脊<br />故事在石巷里点灯</>,
+    coordinates: ["55.9533° N", "3.1883° W"],
+    region: "Scotland · United Kingdom",
+    slug: "edinburgh",
+    documentTitle: "Edinburgh · 爱丁堡漫游志",
+    language: "en-GB",
+    libraryLabel: "Travel library",
+    indexLabel: "INDEX · 目录",
+    exportBookLabel: "Export the book",
+    exportPagesLabel: "Export pages",
+    longImageLabel: "Long image",
+  },
+  paris: {
+    edition: "CARNET № 14",
+    kicker: ["Voyage en France"],
+    city: "PARIS",
+    cityZh: "巴黎漫游志",
+    copy: <>塞纳河负责转场<br />街角咖啡馆负责停顿</>,
+    coordinates: ["48.8566° N", "2.3522° E"],
+    region: "Île-de-France · France",
+    slug: "paris",
+    documentTitle: "Paris · 巴黎漫游志",
+    language: "fr",
+    libraryLabel: "Bibliothèque de voyage",
+    indexLabel: "SOMMAIRE · 目录",
+    exportBookLabel: "Exporter le carnet",
+    exportPagesLabel: "Exporter les pages",
+    longImageLabel: "Image longue",
+  },
+  kyoto: {
+    edition: "TRAVEL BOOK № 15",
+    kicker: ["日本を歩く", "Journey through Japan"],
+    city: "KYOTO",
+    cityZh: "京都漫游志",
+    copy: <>晨钟把山门叫醒<br />一碗茶把四季放慢</>,
+    coordinates: ["35.0116° N", "135.7681° E"],
+    region: "京都府 · 日本",
+    slug: "kyoto",
+    documentTitle: "京都 · Kyoto 漫游志",
+    language: "ja",
+    libraryLabel: "旅行書架",
+    indexLabel: "目次 · 目录",
+    exportBookLabel: "旅の本を書き出す",
+    exportPagesLabel: "ページ画像を書き出す",
+    longImageLabel: "長い画像を書き出す",
   },
   beijing: {
     edition: "TRAVEL BOOK № 09",
@@ -137,7 +237,11 @@ const destinationMeta = {
 
 const guideComponents: Record<DestinationKey, React.ComponentType<{ theme: ThemeKey }> | null> = {
   milan: null,
+  rome: RomeGuide,
   london: LondonGuide,
+  edinburgh: EdinburghGuide,
+  paris: ParisGuide,
+  kyoto: KyotoGuide,
   beijing: BeijingGuide,
   shanghai: ShanghaiGuide,
   guangzhou: GuangzhouGuide,
