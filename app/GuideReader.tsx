@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import BeijingGuide from "./BeijingGuide";
+import ChengduGuide from "./ChengduGuide";
 import EdinburghGuide from "./EdinburghGuide";
 import GuangzhouGuide from "./GuangzhouGuide";
 import KyotoGuide from "./KyotoGuide";
@@ -9,8 +10,9 @@ import LondonGuide from "./LondonGuide";
 import ParisGuide from "./ParisGuide";
 import RomeGuide from "./RomeGuide";
 import ShanghaiGuide from "./ShanghaiGuide";
+import XianGuide from "./XianGuide";
 
-type DestinationKey = "milan" | "rome" | "london" | "edinburgh" | "paris" | "kyoto" | "beijing" | "shanghai" | "guangzhou";
+type DestinationKey = "milan" | "rome" | "london" | "edinburgh" | "paris" | "kyoto" | "beijing" | "shanghai" | "guangzhou" | "xian" | "chengdu";
 type ThemeKey = "vintage" | "modern";
 
 const chapterSets = {
@@ -74,6 +76,20 @@ const chapterSets = {
     { id: "prologue", no: "00", local: "序章", zh: "PROLOGUE" },
     { id: "cultura", no: "01", local: "人文", zh: "HERITAGE" },
     { id: "natura", no: "02", local: "云水", zh: "NATURE" },
+    { id: "sapori", no: "03", local: "味道", zh: "FLAVOURS" },
+    { id: "itinerario", no: "04", local: "行程", zh: "ITINERARY" },
+  ],
+  xian: [
+    { id: "prologue", no: "00", local: "序章", zh: "PROLOGUE" },
+    { id: "cultura", no: "01", local: "人文", zh: "HERITAGE" },
+    { id: "natura", no: "02", local: "山河", zh: "NATURE" },
+    { id: "sapori", no: "03", local: "味道", zh: "FLAVOURS" },
+    { id: "itinerario", no: "04", local: "行程", zh: "ITINERARY" },
+  ],
+  chengdu: [
+    { id: "prologue", no: "00", local: "序章", zh: "PROLOGUE" },
+    { id: "cultura", no: "01", local: "人文", zh: "HERITAGE" },
+    { id: "natura", no: "02", local: "山水", zh: "NATURE" },
     { id: "sapori", no: "03", local: "味道", zh: "FLAVOURS" },
     { id: "itinerario", no: "04", local: "行程", zh: "ITINERARY" },
   ],
@@ -233,6 +249,40 @@ const destinationMeta = {
     exportPagesLabel: "导出分页图片",
     longImageLabel: "导出完整长图",
   },
+  xian: {
+    edition: "TRAVEL BOOK № 16",
+    kicker: ["行走中国", "Journey through China"],
+    city: "XI'AN",
+    cityZh: "西安漫游志",
+    copy: <>城门把长安围住<br />面香从巷口跑出来</>,
+    coordinates: ["34.3416° N", "108.9398° E"],
+    region: "西安市 · 陕西 · 中国",
+    slug: "xian",
+    documentTitle: "西安 · Xi'an 漫游志",
+    language: "zh-CN",
+    libraryLabel: "旅行书架",
+    indexLabel: "目录 · INDEX",
+    exportBookLabel: "导出城市读本",
+    exportPagesLabel: "导出分页图片",
+    longImageLabel: "导出完整长图",
+  },
+  chengdu: {
+    edition: "TRAVEL BOOK № 17",
+    kicker: ["行走中国", "Journey through China"],
+    city: "CHENGDU",
+    cityZh: "成都漫游志",
+    copy: <>熊猫醒得比城早<br />茶碗把午后留住</>,
+    coordinates: ["30.5728° N", "104.0668° E"],
+    region: "成都市 · 四川 · 中国",
+    slug: "chengdu",
+    documentTitle: "成都 · Chengdu 漫游志",
+    language: "zh-CN",
+    libraryLabel: "旅行书架",
+    indexLabel: "目录 · INDEX",
+    exportBookLabel: "导出城市读本",
+    exportPagesLabel: "导出分页图片",
+    longImageLabel: "导出完整长图",
+  },
 } as const;
 
 const guideComponents: Record<DestinationKey, React.ComponentType<{ theme: ThemeKey }> | null> = {
@@ -245,6 +295,8 @@ const guideComponents: Record<DestinationKey, React.ComponentType<{ theme: Theme
   beijing: BeijingGuide,
   shanghai: ShanghaiGuide,
   guangzhou: GuangzhouGuide,
+  xian: XianGuide,
+  chengdu: ChengduGuide,
 };
 
 function isDestinationKey(value: string | null): value is DestinationKey {

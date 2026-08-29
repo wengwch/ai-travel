@@ -584,6 +584,22 @@ img { display: block; width: 100%; }
 }
 .destination-guangzhou .reading-progress { background: #d77b4b; box-shadow: 0 0 9px rgba(215,123,75,.58); }
 .destination-guangzhou .book-index nav button.active::after { background: #d77b4b; }
+.destination-xian .book-index {
+  background:
+    linear-gradient(rgba(64,42,29,.94), rgba(44,29,22,.98)),
+    radial-gradient(circle at 20% 20%, #8b6646, transparent 45%),
+    #4a3025;
+}
+.destination-xian .reading-progress { background: #d29a4f; box-shadow: 0 0 9px rgba(210,154,79,.58); }
+.destination-xian .book-index nav button.active::after { background: #d29a4f; }
+.destination-chengdu .book-index {
+  background:
+    linear-gradient(rgba(31,53,43,.94), rgba(22,39,32,.98)),
+    radial-gradient(circle at 20% 20%, #587962, transparent 45%),
+    #294639;
+}
+.destination-chengdu .reading-progress { background: #d38755; box-shadow: 0 0 9px rgba(211,135,85,.58); }
+.destination-chengdu .book-index nav button.active::after { background: #d38755; }
 
 .book-index nav { position: relative; margin-top: 34px; }
 .nav-label { margin: 0 0 10px; color: #8f9a92; font: 600 9px/1 Arial, sans-serif; letter-spacing: .24em; }
@@ -798,6 +814,8 @@ blockquote small { display: block; color: var(--muted); font-size: 11px; line-he
 .beijing-axis-card::before { content: "中轴"; }
 .shanghai-lane-card::before { content: "里弄"; }
 .guangzhou-arcade-card::before { content: "骑楼"; }
+.xian-gate-card::before { content: "长安"; }
+.chengdu-alley-card::before { content: "巷子"; }
 .rome-dome-card::before { content: "SPQR"; }
 .edinburgh-close-card::before { content: "CLOSE"; }
 .paris-passage-card::before { content: "PASSAGE"; }
@@ -859,6 +877,8 @@ blockquote small { display: block; color: var(--muted); font-size: 11px; line-he
 .dish-grid .beijing-breakfast-card::before { content: "早食"; }
 .dish-grid .shanghai-breakfast-card::before { content: "早饭"; }
 .dish-grid .guangzhou-yumcha-card::before { content: "饮茶"; }
+.dish-grid .xian-night-card::before { content: "夜食"; }
+.dish-grid .chengdu-tea-card::before { content: "盖碗茶"; }
 .dish-grid .rome-passeggiata-card::before { content: "PASSEGGIATA"; font-size: 36px; }
 .dish-grid .edinburgh-pub-card::before { content: "THE PUB"; }
 .dish-grid .paris-apero-card::before { content: "L’APÉRO"; }
@@ -962,6 +982,18 @@ footer > div:nth-child(2) > p:last-child { margin: 0; color: #bdb3a0; font-size:
   --modern-accent-soft: #f1e3dd;
   --modern-accent-faint: rgba(184,76,54,.2);
   --modern-accent-mid: rgba(184,76,54,.5);
+}
+.theme-modern.destination-xian {
+  --modern-accent: #b75a35;
+  --modern-accent-soft: #f1e3dc;
+  --modern-accent-faint: rgba(183,90,53,.2);
+  --modern-accent-mid: rgba(183,90,53,.5);
+}
+.theme-modern.destination-chengdu {
+  --modern-accent: #2f7a58;
+  --modern-accent-soft: #dfece6;
+  --modern-accent-faint: rgba(47,122,88,.2);
+  --modern-accent-mid: rgba(47,122,88,.5);
 }
 
 .theme-modern .reading-progress { background: var(--modern-accent); box-shadow: none; }
@@ -1093,6 +1125,8 @@ footer > div:nth-child(2) > p:last-child { margin: 0; color: #bdb3a0; font-size:
 .theme-modern.destination-beijing .last-supper { background: #402620; }
 .theme-modern.destination-shanghai .last-supper { background: #173b3e; }
 .theme-modern.destination-guangzhou .last-supper { background: #263e32; }
+.theme-modern.destination-xian .last-supper { background: #493026; }
+.theme-modern.destination-chengdu .last-supper { background: #244033; }
 .theme-modern .last-supper .bilingual-name small,
 .theme-modern .last-supper p { color: #e5edf0; }
 .theme-modern .last-supper .category,
@@ -1122,6 +1156,12 @@ footer > div:nth-child(2) > p:last-child { margin: 0; color: #bdb3a0; font-size:
 .theme-modern.destination-guangzhou .last-supper .category,
 .theme-modern.destination-guangzhou .last-supper .art-index,
 .theme-modern.destination-guangzhou .last-supper a { color: #efb084; }
+.theme-modern.destination-xian .last-supper .category,
+.theme-modern.destination-xian .last-supper .art-index,
+.theme-modern.destination-xian .last-supper a { color: #efb47c; }
+.theme-modern.destination-chengdu .last-supper .category,
+.theme-modern.destination-chengdu .last-supper .art-index,
+.theme-modern.destination-chengdu .last-supper a { color: #a9d9bd; }
 .theme-modern .art-index { color: var(--modern-accent-mid); font-family: Arial, sans-serif; font-style: normal; font-weight: 800; }
 .theme-modern .castle-card::before { color: var(--modern-accent-mid); }
 .theme-modern .route-note { color: var(--modern-accent); }
@@ -1187,6 +1227,8 @@ footer > div:nth-child(2) > p:last-child { margin: 0; color: #bdb3a0; font-size:
 .theme-modern.destination-beijing .sources a { color: #efb09f; }
 .theme-modern.destination-shanghai .sources a { color: #8cd2d5; }
 .theme-modern.destination-guangzhou .sources a { color: #efab91; }
+.theme-modern.destination-xian .sources a { color: #efb395; }
+.theme-modern.destination-chengdu .sources a { color: #9ed4b5; }
 
 .book-index,
 .book-pages,
