@@ -600,6 +600,36 @@ img { display: block; width: 100%; }
 }
 .destination-chengdu .reading-progress { background: #d38755; box-shadow: 0 0 9px rgba(211,135,85,.58); }
 .destination-chengdu .book-index nav button.active::after { background: #d38755; }
+.destination-cairo .book-index {
+  background: linear-gradient(rgba(55,43,30,.94), rgba(37,30,23,.98)), radial-gradient(circle at 20% 20%, #826a48, transparent 45%), #463827;
+}
+.destination-cairo .reading-progress { background: #c99a50; box-shadow: 0 0 9px rgba(201,154,80,.58); }
+.destination-cairo .book-index nav button.active::after { background: #c99a50; }
+.destination-istanbul .book-index {
+  background: linear-gradient(rgba(27,49,59,.94), rgba(18,35,43,.98)), radial-gradient(circle at 20% 20%, #476e78, transparent 45%), #213f4a;
+}
+.destination-istanbul .reading-progress { background: #d18a52; box-shadow: 0 0 9px rgba(209,138,82,.58); }
+.destination-istanbul .book-index nav button.active::after { background: #d18a52; }
+.destination-athens .book-index {
+  background: linear-gradient(rgba(43,52,61,.94), rgba(28,36,44,.98)), radial-gradient(circle at 20% 20%, #6a7883, transparent 45%), #35434d;
+}
+.destination-athens .reading-progress { background: #c89b57; box-shadow: 0 0 9px rgba(200,155,87,.58); }
+.destination-athens .book-index nav button.active::after { background: #c89b57; }
+.destination-samarkand .book-index {
+  background: linear-gradient(rgba(27,49,55,.94), rgba(18,34,39,.98)), radial-gradient(circle at 20% 20%, #416e73, transparent 45%), #24444a;
+}
+.destination-samarkand .reading-progress { background: #c18a45; box-shadow: 0 0 9px rgba(193,138,69,.58); }
+.destination-samarkand .book-index nav button.active::after { background: #c18a45; }
+.destination-mexico-city .book-index {
+  background: linear-gradient(rgba(55,38,33,.94), rgba(38,26,25,.98)), radial-gradient(circle at 20% 20%, #805b4f, transparent 45%), #49332d;
+}
+.destination-mexico-city .reading-progress { background: #c86645; box-shadow: 0 0 9px rgba(200,102,69,.58); }
+.destination-mexico-city .book-index nav button.active::after { background: #c86645; }
+.destination-cusco .book-index {
+  background: linear-gradient(rgba(54,39,33,.94), rgba(38,28,25,.98)), radial-gradient(circle at 20% 20%, #7d5c4d, transparent 45%), #49362e;
+}
+.destination-cusco .reading-progress { background: #bd7650; box-shadow: 0 0 9px rgba(189,118,80,.58); }
+.destination-cusco .book-index nav button.active::after { background: #bd7650; }
 
 .book-index nav { position: relative; margin-top: 34px; }
 .nav-label { margin: 0 0 10px; color: #8f9a92; font: 600 9px/1 Arial, sans-serif; letter-spacing: .24em; }
@@ -816,6 +846,12 @@ blockquote small { display: block; color: var(--muted); font-size: 11px; line-he
 .guangzhou-arcade-card::before { content: "骑楼"; }
 .xian-gate-card::before { content: "长安"; }
 .chengdu-alley-card::before { content: "巷子"; }
+.cairo-lane-card::before { content: "القاهرة"; }
+.istanbul-ferry-card::before { content: "VAPUR"; }
+.athens-stoa-card::before { content: "ΣΤΟΑ"; }
+.samarkand-silk-card::before { content: "IPAK"; }
+.mexico-layer-card::before { content: "CAPAS"; }
+.cusco-stone-card::before { content: "RUMI"; }
 .rome-dome-card::before { content: "SPQR"; }
 .edinburgh-close-card::before { content: "CLOSE"; }
 .paris-passage-card::before { content: "PASSAGE"; }
@@ -879,6 +915,12 @@ blockquote small { display: block; color: var(--muted); font-size: 11px; line-he
 .dish-grid .guangzhou-yumcha-card::before { content: "饮茶"; }
 .dish-grid .xian-night-card::before { content: "夜食"; }
 .dish-grid .chengdu-tea-card::before { content: "盖碗茶"; }
+.dish-grid .cairo-coffee-card::before { content: "قهوة"; }
+.dish-grid .istanbul-tea-card::before { content: "ÇAY"; }
+.dish-grid .athens-coffee-card::before { content: "ΚΑΦΕΣ"; }
+.dish-grid .samarkand-tea-card::before { content: "CHOY"; }
+.dish-grid .mexico-snack-card::before { content: "ANTOJITO"; font-size: 36px; }
+.dish-grid .cusco-chicha-card::before { content: "CHICHA"; }
 .dish-grid .rome-passeggiata-card::before { content: "PASSEGGIATA"; font-size: 36px; }
 .dish-grid .edinburgh-pub-card::before { content: "THE PUB"; }
 .dish-grid .paris-apero-card::before { content: "L’APÉRO"; }
@@ -994,6 +1036,24 @@ footer > div:nth-child(2) > p:last-child { margin: 0; color: #bdb3a0; font-size:
   --modern-accent-soft: #dfece6;
   --modern-accent-faint: rgba(47,122,88,.2);
   --modern-accent-mid: rgba(47,122,88,.5);
+}
+.theme-modern.destination-cairo {
+  --modern-accent: #a66b26; --modern-accent-soft: #eee4d5; --modern-accent-faint: rgba(166,107,38,.2); --modern-accent-mid: rgba(166,107,38,.5);
+}
+.theme-modern.destination-istanbul {
+  --modern-accent: #177b89; --modern-accent-soft: #dcebed; --modern-accent-faint: rgba(23,123,137,.2); --modern-accent-mid: rgba(23,123,137,.5);
+}
+.theme-modern.destination-athens {
+  --modern-accent: #3e7499; --modern-accent-soft: #dfe9ef; --modern-accent-faint: rgba(62,116,153,.2); --modern-accent-mid: rgba(62,116,153,.5);
+}
+.theme-modern.destination-samarkand {
+  --modern-accent: #197985; --modern-accent-soft: #dcebed; --modern-accent-faint: rgba(25,121,133,.2); --modern-accent-mid: rgba(25,121,133,.5);
+}
+.theme-modern.destination-mexico-city {
+  --modern-accent: #b24832; --modern-accent-soft: #f0e0da; --modern-accent-faint: rgba(178,72,50,.2); --modern-accent-mid: rgba(178,72,50,.5);
+}
+.theme-modern.destination-cusco {
+  --modern-accent: #a65236; --modern-accent-soft: #eee1dc; --modern-accent-faint: rgba(166,82,54,.2); --modern-accent-mid: rgba(166,82,54,.5);
 }
 
 .theme-modern .reading-progress { background: var(--modern-accent); box-shadow: none; }
@@ -1127,6 +1187,12 @@ footer > div:nth-child(2) > p:last-child { margin: 0; color: #bdb3a0; font-size:
 .theme-modern.destination-guangzhou .last-supper { background: #263e32; }
 .theme-modern.destination-xian .last-supper { background: #493026; }
 .theme-modern.destination-chengdu .last-supper { background: #244033; }
+.theme-modern.destination-cairo .last-supper { background: #44351f; }
+.theme-modern.destination-istanbul .last-supper { background: #173b43; }
+.theme-modern.destination-athens .last-supper { background: #283b4a; }
+.theme-modern.destination-samarkand .last-supper { background: #193d40; }
+.theme-modern.destination-mexico-city .last-supper { background: #472a25; }
+.theme-modern.destination-cusco .last-supper { background: #463026; }
 .theme-modern .last-supper .bilingual-name small,
 .theme-modern .last-supper p { color: #e5edf0; }
 .theme-modern .last-supper .category,
@@ -1162,6 +1228,24 @@ footer > div:nth-child(2) > p:last-child { margin: 0; color: #bdb3a0; font-size:
 .theme-modern.destination-chengdu .last-supper .category,
 .theme-modern.destination-chengdu .last-supper .art-index,
 .theme-modern.destination-chengdu .last-supper a { color: #a9d9bd; }
+.theme-modern.destination-cairo .last-supper .category,
+.theme-modern.destination-cairo .last-supper .art-index,
+.theme-modern.destination-cairo .last-supper a { color: #e4bd7f; }
+.theme-modern.destination-istanbul .last-supper .category,
+.theme-modern.destination-istanbul .last-supper .art-index,
+.theme-modern.destination-istanbul .last-supper a { color: #83d0d7; }
+.theme-modern.destination-athens .last-supper .category,
+.theme-modern.destination-athens .last-supper .art-index,
+.theme-modern.destination-athens .last-supper a { color: #9bc9e2; }
+.theme-modern.destination-samarkand .last-supper .category,
+.theme-modern.destination-samarkand .last-supper .art-index,
+.theme-modern.destination-samarkand .last-supper a { color: #8ed1d1; }
+.theme-modern.destination-mexico-city .last-supper .category,
+.theme-modern.destination-mexico-city .last-supper .art-index,
+.theme-modern.destination-mexico-city .last-supper a { color: #efaa91; }
+.theme-modern.destination-cusco .last-supper .category,
+.theme-modern.destination-cusco .last-supper .art-index,
+.theme-modern.destination-cusco .last-supper a { color: #e8ad91; }
 .theme-modern .art-index { color: var(--modern-accent-mid); font-family: Arial, sans-serif; font-style: normal; font-weight: 800; }
 .theme-modern .castle-card::before { color: var(--modern-accent-mid); }
 .theme-modern .route-note { color: var(--modern-accent); }
@@ -1229,6 +1313,16 @@ footer > div:nth-child(2) > p:last-child { margin: 0; color: #bdb3a0; font-size:
 .theme-modern.destination-guangzhou .sources a { color: #efab91; }
 .theme-modern.destination-xian .sources a { color: #efb395; }
 .theme-modern.destination-chengdu .sources a { color: #9ed4b5; }
+.theme-modern.destination-cairo .sources a { color: #e0b57a; }
+.theme-modern.destination-istanbul .sources a { color: #84d0d6; }
+.theme-modern.destination-athens .sources a { color: #9bc9e2; }
+.theme-modern.destination-samarkand .sources a { color: #8ed1d1; }
+.theme-modern.destination-mexico-city .sources a { color: #efaa91; }
+.theme-modern.destination-cusco .sources a { color: #e8ad91; }
+
+.destination-mexico-city .index-brand h1 { font-size: 27px; letter-spacing: .01em; }
+.theme-modern.destination-mexico-city .index-brand h1 { font-size: 27px; letter-spacing: -.02em; }
+.destination-samarkand .index-brand h1 { font-size: 31px; letter-spacing: 0; }
 
 .book-index,
 .book-pages,

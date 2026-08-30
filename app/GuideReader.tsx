@@ -1,18 +1,24 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import AthensGuide from "./AthensGuide";
 import BeijingGuide from "./BeijingGuide";
+import CairoGuide from "./CairoGuide";
 import ChengduGuide from "./ChengduGuide";
+import CuscoGuide from "./CuscoGuide";
 import EdinburghGuide from "./EdinburghGuide";
 import GuangzhouGuide from "./GuangzhouGuide";
+import IstanbulGuide from "./IstanbulGuide";
 import KyotoGuide from "./KyotoGuide";
 import LondonGuide from "./LondonGuide";
+import MexicoCityGuide from "./MexicoCityGuide";
 import ParisGuide from "./ParisGuide";
 import RomeGuide from "./RomeGuide";
+import SamarkandGuide from "./SamarkandGuide";
 import ShanghaiGuide from "./ShanghaiGuide";
 import XianGuide from "./XianGuide";
 
-type DestinationKey = "milan" | "rome" | "london" | "edinburgh" | "paris" | "kyoto" | "beijing" | "shanghai" | "guangzhou" | "xian" | "chengdu";
+type DestinationKey = "milan" | "rome" | "london" | "edinburgh" | "paris" | "kyoto" | "beijing" | "shanghai" | "guangzhou" | "xian" | "chengdu" | "cairo" | "istanbul" | "athens" | "samarkand" | "mexico-city" | "cusco";
 type ThemeKey = "vintage" | "modern";
 
 const chapterSets = {
@@ -92,6 +98,48 @@ const chapterSets = {
     { id: "natura", no: "02", local: "山水", zh: "NATURE" },
     { id: "sapori", no: "03", local: "味道", zh: "FLAVOURS" },
     { id: "itinerario", no: "04", local: "行程", zh: "ITINERARY" },
+  ],
+  cairo: [
+    { id: "prologue", no: "00", local: "مقدمة", zh: "序章" },
+    { id: "cultura", no: "01", local: "تراث", zh: "人文" },
+    { id: "natura", no: "02", local: "النيل", zh: "水脉" },
+    { id: "sapori", no: "03", local: "نكهات", zh: "味道" },
+    { id: "itinerario", no: "04", local: "مسار", zh: "行程" },
+  ],
+  istanbul: [
+    { id: "prologue", no: "00", local: "Önsöz", zh: "序章" },
+    { id: "cultura", no: "01", local: "Miras", zh: "人文" },
+    { id: "natura", no: "02", local: "Boğaz", zh: "海峡" },
+    { id: "sapori", no: "03", local: "Lezzet", zh: "味道" },
+    { id: "itinerario", no: "04", local: "Rota", zh: "行程" },
+  ],
+  athens: [
+    { id: "prologue", no: "00", local: "Πρόλογος", zh: "序章" },
+    { id: "cultura", no: "01", local: "Πολιτισμός", zh: "人文" },
+    { id: "natura", no: "02", local: "Φύση", zh: "山海" },
+    { id: "sapori", no: "03", local: "Γεύσεις", zh: "味道" },
+    { id: "itinerario", no: "04", local: "Διαδρομή", zh: "行程" },
+  ],
+  samarkand: [
+    { id: "prologue", no: "00", local: "Muqaddima", zh: "序章" },
+    { id: "cultura", no: "01", local: "Meros", zh: "人文" },
+    { id: "natura", no: "02", local: "Tabiat", zh: "河谷" },
+    { id: "sapori", no: "03", local: "Ta'mlar", zh: "味道" },
+    { id: "itinerario", no: "04", local: "Yo‘nalish", zh: "行程" },
+  ],
+  "mexico-city": [
+    { id: "prologue", no: "00", local: "Prólogo", zh: "序章" },
+    { id: "cultura", no: "01", local: "Patrimonio", zh: "人文" },
+    { id: "natura", no: "02", local: "Naturaleza", zh: "水土" },
+    { id: "sapori", no: "03", local: "Sabores", zh: "味道" },
+    { id: "itinerario", no: "04", local: "Ruta", zh: "行程" },
+  ],
+  cusco: [
+    { id: "prologue", no: "00", local: "Prólogo", zh: "序章" },
+    { id: "cultura", no: "01", local: "Patrimonio", zh: "人文" },
+    { id: "natura", no: "02", local: "Pachamama", zh: "山谷" },
+    { id: "sapori", no: "03", local: "Sabores", zh: "味道" },
+    { id: "itinerario", no: "04", local: "Ruta", zh: "行程" },
   ],
 } as const;
 
@@ -283,6 +331,108 @@ const destinationMeta = {
     exportPagesLabel: "导出分页图片",
     longImageLabel: "导出完整长图",
   },
+  cairo: {
+    edition: "TRAVEL BOOK № 18",
+    kicker: ["رحلة عبر مصر", "Journey through Egypt"],
+    city: "CAIRO",
+    cityZh: "开罗漫游志",
+    copy: <>宣礼声越过屋顶<br />尼罗河替一天降温</>,
+    coordinates: ["30.0444° N", "31.2357° E"],
+    region: "Cairo Governorate · مصر",
+    slug: "cairo",
+    documentTitle: "Cairo · 开罗漫游志",
+    language: "ar",
+    libraryLabel: "مكتبة السفر",
+    indexLabel: "الفهرس · 目录",
+    exportBookLabel: "تصدير الكتاب",
+    exportPagesLabel: "تصدير الصفحات",
+    longImageLabel: "تصدير صورة طويلة",
+  },
+  istanbul: {
+    edition: "TRAVEL BOOK № 19",
+    kicker: ["Türkiye’de Yolculuk", "Journey through Türkiye"],
+    city: "ISTANBUL",
+    cityZh: "伊斯坦布尔漫游志",
+    copy: <>渡轮把两洲缝合<br />茶杯替航程计时</>,
+    coordinates: ["41.0082° N", "28.9784° E"],
+    region: "Marmara · Türkiye",
+    slug: "istanbul",
+    documentTitle: "İstanbul · 伊斯坦布尔漫游志",
+    language: "tr",
+    libraryLabel: "Seyahat arşivi",
+    indexLabel: "İÇİNDEKİLER · 目录",
+    exportBookLabel: "Kitabı dışa aktar",
+    exportPagesLabel: "Sayfaları dışa aktar",
+    longImageLabel: "Uzun görseli dışa aktar",
+  },
+  athens: {
+    edition: "TRAVEL BOOK № 20",
+    kicker: ["Ταξίδι στην Ελλάδα", "Journey through Greece"],
+    city: "ATHENS",
+    cityZh: "雅典漫游志",
+    copy: <>大理石记得烈日<br />山丘负责把海找回来</>,
+    coordinates: ["37.9838° N", "23.7275° E"],
+    region: "Attica · Ελλάδα",
+    slug: "athens",
+    documentTitle: "Athens · 雅典漫游志",
+    language: "el",
+    libraryLabel: "Ταξιδιωτική βιβλιοθήκη",
+    indexLabel: "ΠΕΡΙΕΧΟΜΕΝΑ · 目录",
+    exportBookLabel: "Εξαγωγή βιβλίου",
+    exportPagesLabel: "Εξαγωγή σελίδων",
+    longImageLabel: "Εξαγωγή μεγάλης εικόνας",
+  },
+  samarkand: {
+    edition: "TRAVEL BOOK № 21",
+    kicker: ["O‘zbekiston bo‘ylab", "Journey through Uzbekistan"],
+    city: "SAMARKAND",
+    cityZh: "撒马尔罕漫游志",
+    copy: <>青金砖留住天色<br />面包香从丝路拐弯</>,
+    coordinates: ["39.6542° N", "66.9597° E"],
+    region: "Samarqand viloyati · O‘zbekiston",
+    slug: "samarkand",
+    documentTitle: "Samarkand · 撒马尔罕漫游志",
+    language: "uz",
+    libraryLabel: "Sayohat kutubxonasi",
+    indexLabel: "MUNDARIJA · 目录",
+    exportBookLabel: "Kitobni eksport qilish",
+    exportPagesLabel: "Sahifalarni eksport qilish",
+    longImageLabel: "Uzun rasmni eksport qilish",
+  },
+  "mexico-city": {
+    edition: "TRAVEL BOOK № 22",
+    kicker: ["Viaje por México", "Journey through Mexico"],
+    city: "MEXICO CITY",
+    cityZh: "墨西哥城漫游志",
+    copy: <>城下还藏着一座城<br />玉米香从街角升起</>,
+    coordinates: ["19.4326° N", "99.1332° W"],
+    region: "Valle de México · México",
+    slug: "mexico-city",
+    documentTitle: "Ciudad de México · 墨西哥城漫游志",
+    language: "es-MX",
+    libraryLabel: "Biblioteca de viaje",
+    indexLabel: "ÍNDICE · 目录",
+    exportBookLabel: "Exportar el libro",
+    exportPagesLabel: "Exportar páginas",
+    longImageLabel: "Exportar imagen larga",
+  },
+  cusco: {
+    edition: "TRAVEL BOOK № 23",
+    kicker: ["Viaje por Perú", "Journey through Peru"],
+    city: "CUSCO",
+    cityZh: "库斯科漫游志",
+    copy: <>石墙把山势折进街巷<br />高原风替脚步减速</>,
+    coordinates: ["13.5319° S", "71.9675° W"],
+    region: "Región Cusco · Perú",
+    slug: "cusco",
+    documentTitle: "Qosqo · Cusco · 库斯科漫游志",
+    language: "es-PE",
+    libraryLabel: "Biblioteca de viaje",
+    indexLabel: "ÍNDICE · 目录",
+    exportBookLabel: "Exportar el libro",
+    exportPagesLabel: "Exportar páginas",
+    longImageLabel: "Exportar imagen larga",
+  },
 } as const;
 
 const guideComponents: Record<DestinationKey, React.ComponentType<{ theme: ThemeKey }> | null> = {
@@ -297,6 +447,12 @@ const guideComponents: Record<DestinationKey, React.ComponentType<{ theme: Theme
   guangzhou: GuangzhouGuide,
   xian: XianGuide,
   chengdu: ChengduGuide,
+  cairo: CairoGuide,
+  istanbul: IstanbulGuide,
+  athens: AthensGuide,
+  samarkand: SamarkandGuide,
+  "mexico-city": MexicoCityGuide,
+  cusco: CuscoGuide,
 };
 
 function isDestinationKey(value: string | null): value is DestinationKey {
